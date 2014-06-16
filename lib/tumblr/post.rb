@@ -3,7 +3,7 @@ require 'mime/types'
 module Tumblr
   module Post
 
-    STANDARD_POST_OPTIONS = [:state, :tags, :tweet, :date, :markdown, :slug, :format, :source_url]
+    STANDARD_POST_OPTIONS = [:state, :tags, :tweet, :date, :markdown, :slug, :format]
     DATA_POST_TYPES = [:audio, :video, :photo]
     VALID_POST_TYPES = DATA_POST_TYPES + [:quote, :text, :link, :chat]
 
@@ -23,7 +23,7 @@ module Tumblr
     end
 
     def photo(blog_name, options = {})
-      valid_opts = STANDARD_POST_OPTIONS + [:caption, :link, :data, :source, :photoset_layout]
+      valid_opts = STANDARD_POST_OPTIONS + [:caption, :link, :data, :source, :photoset_layout, :source_url]
       validate_options(valid_opts, options)
       validate_no_collision options, [:data, :source]
       convert_source_array :source, options
