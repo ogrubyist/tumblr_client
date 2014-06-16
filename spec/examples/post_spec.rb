@@ -7,6 +7,7 @@ describe Tumblr::Post do
   let(:file_path) { '/path/to/the/file' }
   let(:file_data) { 'lol cats' }
   let(:source)    { 'the source' }
+  let(:source_url){ 'the source link' }
   let(:post_id)   { 42 }
 
   describe :delete do
@@ -254,6 +255,15 @@ describe Tumblr::Post do
               :source => "#{source},#{source}",
             })
             client.edit blog_name, :id => post_id, :source => [source, source]
+          end
+
+          it 'should be able to be passed along with source url' do
+            client.should_receive(:post).once.with("v2/blog/#{blog_name}/post", {
+              :source => source,
+              :source_url => source_url,
+              :type => type.to_s
+            })
+            client.send type, blog_name, :source => source, :source_url => source_url
           end
 
         end
