@@ -102,10 +102,7 @@ module Tumblr
     # Allow source to be passed as an Array
     def convert_source_array(key, options)
       if options.has_key?(key) && options[key].kind_of?(Array)
-        options[key].each.with_index do |src, idx|
-          options["#{key.to_s}[#{idx}]"] = src
-        end
-        options.delete(key)
+        options[key] = options[key].join(',')
       end
     end
 

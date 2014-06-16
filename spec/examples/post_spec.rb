@@ -242,8 +242,7 @@ describe Tumblr::Post do
 
           it 'should be able to be passed as an array' do
             client.should_receive(:post).once.with("v2/blog/#{blog_name}/post", {
-              'source[0]' => source,
-              'source[1]' => source,
+              :source => "#{source},#{source}",
               :type => type.to_s
             })
             client.send type, blog_name, :source => [source, source]
@@ -252,8 +251,7 @@ describe Tumblr::Post do
           it 'should be able to be passed as an array on edit' do
             client.should_receive(:post).once.with("v2/blog/#{blog_name}/post/edit", {
               :id => post_id,
-              'source[0]' => source,
-              'source[1]' => source
+              :source => "#{source},#{source}",
             })
             client.edit blog_name, :id => post_id, :source => [source, source]
           end
